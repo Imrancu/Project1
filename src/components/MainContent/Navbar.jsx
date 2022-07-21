@@ -5,9 +5,9 @@ import { IoIosFunnel, IoMdNotifications } from 'react-icons/io'
 const Navbar = () => {
     return (
         <div className='flex items-center'>
-            <div className='flex items-center rounded bg-gray-100 my-3 mr-64 p-2'>
+            <div className='flex items-center rounded-lg bg-gray-100 my-3 mr-64 p-2'>
                 <span className='text-2xl text-gray-500 px-3'><AiOutlineSearch /></span>
-                <input type="text" placeholder="Search here" className=" px-3 text-gray-500 ml-3 mr-48 input w-full text-lg max-w-xs bg-gray-100" />
+                <input type="text" placeholder="Search here" className="px-3 text-gray-500 ml-3 mr-48 input w-full text-lg bg-gray-100" />
                 <span className='text-xl text-gray-500'><IoIosFunnel /></span>
             </div>
             <div className='flex justify-end'>
