@@ -8,5 +8,15 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          primary: "#292A73",
+          secondary: "#F49C00",
+        },
+      },
+    ],
+  },
+  plugins: [require("daisyui"), require('tailwind-scrollbar-hide')],
 }

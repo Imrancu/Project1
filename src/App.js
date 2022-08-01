@@ -1,12 +1,20 @@
 import './App.css';
-import Home from './components/MainContent/Home';
-import Sidebar from './components/Sidebar/Sidebar';
+import Dashboard from './components/Dashboard/Dashboard';
+import { Routes, Route } from "react-router-dom";
+import Invoice from './components/Dashboard/Invoice';
+import MainContent from './components/Dashboard/MainContent';
+import CreateInvoice from './components/Dashboard/CreateInvoice';
 
 function App() {
   return (
-    <div className="flex justify-between">
-      <Sidebar/>
-      <Home/>
+    <div>
+      <Routes>
+        <Route path='/' element={<Dashboard />}>
+          <Route index element={<MainContent/>}/>
+          <Route path='invoice' element={<Invoice/>}/>
+          <Route path='invoice/createInvoice' element={<CreateInvoice/>}/>
+        </Route>
+      </Routes>
     </div>
   );
 }
