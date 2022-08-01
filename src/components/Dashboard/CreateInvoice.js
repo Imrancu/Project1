@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { AiOutlineArrowLeft, AiOutlineDelete } from 'react-icons/ai'
 import { ImImage } from 'react-icons/im'
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link } from 'react-router-dom';
 
 const CreateInvoice = () => {
+    const itemTemplate = { itemName: '', itemQuantity: "", price: "", total: "" }
+    const [items, setItems] = useState([itemTemplate])
     const [startDate, setStartDate] = useState(new Date());
     const MyContainer = ({ className, children }) => {
         return (
@@ -19,6 +21,10 @@ const CreateInvoice = () => {
             </div>
         );
     };
+
+    const addNewItem = () => {
+        setItems(...items, itemTemplate)
+    }
     return (
         <div className='mx-10'>
             <h2 className='text-xl font-semibold flex items-center text-gray-700'><AiOutlineArrowLeft className='mr-5 my-14' /> Create New Invoice</h2>
@@ -26,9 +32,9 @@ const CreateInvoice = () => {
                 <div className='flex justify-between py-6'>
                     <div>
                         <div className='flex flex-col items-center justify-center p-16 bg-gray-100 relative'>
-                            <div className='p-7 rounded-full bg-white text-2xl'><ImImage /></div>
+                            <div className='p-7 rounded-full bg-white text-2xl cursor-pointer'><ImImage /></div>
                             <input className='absolute opacity-0 text-transparent' type="file" placeholder='Upload Photo' />
-                            <span className=''>Add Your Logo</span>
+                            <span className='cursor-pointer'>Add Your Logo</span>
                         </div>
                     </div>
                     <div>
@@ -80,31 +86,73 @@ const CreateInvoice = () => {
                         </div>
                     </div>
                     <div className='my-10'>
-                        <div className='grid grid-cols-4 font-semibold text-gray-600 bg-gray-100 p-4'>
-                            <h3>ITEMS</h3>
-                            <h3 className='text-right'>QUANTITY</h3>
-                            <h3 className='text-center'>PRICE</h3>
+                        <div className='grid grid-cols-5 font-semibold rounded-lg text-gray-600 bg-gray-100 p-4'>
+                            <h3 className='col-span-2'>ITEMS</h3>
+                            <h3>QUANTITY</h3>
+                            <h3>PRICE</h3>
                             <h3>TOTAL</h3>
                         </div>
-                        {/* <table class="w-full">
-                            <thead className='bg-gray-100 py-2'>
-                                <tr className='py-9'>
-                                    <th className='text-xl text-gray-500'>Item</th>
-                                    <th className='text-xl text-gray-500 text-right'>Quantity</th>
-                                    <th className='text-xl text-gray-500'>Price</th>
-                                    <th className='text-xl text-gray-500'>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th><input className='border-2 py-3 w-full rounded-lg' type="text" /></th>
-                                    <th><input className='border-2 py-3 w-2/4 rounded-lg' type="text" /></th>
-                                    <th><input className='border-2 py-3 w-2/4 rounded-lg' type="text" /></th>
-                                    <th><input className='border-2 py-3 rounded-lg' type="text" /></th>
-                                </tr>
-                            </tbody>
-                        </table> */}
-                        <p className='text-xl text-primary font-semibold text-right mt-10'>+ Add New Item</p>
+                        <div>
+                            {/* <div className='grid grid-cols-6 gap-4 font-semibold text-gray-600 p-2'>
+                                <input
+                                    className='p-4 text-lg border-2 rounded-lg col-span-2'
+                                    type='text'
+                                    placeholder='Enter an Item' />
+                                <input
+                                    className='p-4 text-lg border-2 rounded-lg ml-8 text-center'
+                                    type='text'
+                                    placeholder='1' />
+                                <input
+                                    className='p-4 text-lg border-2 rounded-lg mr-[-24px]'
+                                    type='text'
+                                    placeholder='NGN: 00' />
+                                <input
+                                    className='p-4 text-lg border-2 rounded-lg ml-8 mr-[-24px]'
+                                    type='text'
+                                    placeholder='NGN: 00' />
+                                <span className='flex justify-center items-center text-red-600 cursor-pointer text-4xl'>
+                                    <AiOutlineDelete />
+                                </span>
+                            </div>
+                            <hr /> */}
+                        </div>
+
+                        {
+                            items.map((item, index) => (
+                                <div key={index}>
+                                    <div className='grid grid-cols-6 gap-4 font-semibold text-gray-600 p-2'>
+                                        <input
+                                            className='p-4 text-lg border-2 rounded-lg col-span-2'
+                                            name='item'
+                                            type='text'
+                                            placeholder='Enter an Item' />
+                                        <input
+                                            className='p-4 text-lg border-2 rounded-lg ml-8 text-center'
+                                            name='itemQuantity'
+                                            type='text'
+                                            placeholder='1' />
+                                        <input
+                                            className='p-4 text-lg border-2 rounded-lg mr-[-24px]'
+                                            name='price'
+                                            type='text'
+                                            placeholder='NGN: 00' />
+                                        <input
+                                            className='p-4 text-lg border-2 rounded-lg ml-8 mr-[-24px]'
+                                            name='total'
+                                            type='text'
+                                            placeholder='NGN: 00' />
+                                        <span className='flex justify-center items-center text-red-600 cursor-pointer text-4xl'>
+                                            <AiOutlineDelete />
+                                        </span>
+                                    </div>
+                                    <hr />
+                                </div>
+                            ))
+                        }
+
+                        <div className='flex justify-end'>
+                            <button onClick={addNewItem} className='text-xl text-primary font-semibold mt-10'>+ Add New Item</button>
+                        </div>
                     </div>
                     <div className='text-right text-gray-700 text-xl font-semibold border-t-2 border-b-2'>
                         <p className='py-4'>SUBTOTAL: <span className='ml-72 text-gray-500'>NGO:00</span></p>
