@@ -1,33 +1,26 @@
 import React from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import auth from '../../firebase.init';
+// import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+// import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import LeftSide from './LeftSide';
 import whiteLogo from '../../assets/logo-white.png'
 
 const Login = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
-
-    const [
-        signInWithEmailAndPassword,
-        user,
-        loading,
-        error,
-    ] = useSignInWithEmailAndPassword(auth);
+    const { register, reset, formState: { errors }, handleSubmit } = useForm();
 
 
-    if (loading) {
-        return <button class="btn btn-square loading flex mx-auto"></button>
-    }
-    let signInError;
-    if (error) {
-        signInError = <p className='text-red-500 text-center'>{error?.message}</p>
-    }
+    // if (loading) {
+    //     return <button class="btn btn-square loading flex mx-auto"></button>
+    // }
+    // let signInError;
+    // if (error) {
+    //     signInError = <p className='text-red-500 text-center'>{error?.message}</p>
+    // }
 
     const onSubmit = (data) => {
         console.log(data)
-        signInWithEmailAndPassword(data.username, data.name, data.email, data.country, data.password, data.referral)
+        reset()
     };
 
     return (
@@ -84,7 +77,7 @@ const Login = () => {
                                 {errors.password?.type === 'required' && <span class="label-text text-xl text-red-500">{errors.password.message}</span>}
                                 {errors.password?.type === 'minLength' && <span class="label-text text-xl text-red-500">{errors.password.message}</span>}
                             </label>
-                            {signInError}
+                            {/* {signInError} */}
                             <p className='text-xl'>Forgot your password? <span className='text-blue-600'>Reset</span></p>
                             <input className='btn btn-primary input-lg w-full my-8 text-white' type="submit" value="Sign In" />
                             <p className='text-xl'>Don't have an account? <Link to="/signup" className='text-secondary'>Sign Up</Link></p>
